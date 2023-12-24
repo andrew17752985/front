@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Calculator</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 2vw;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+      }
+
+      label {
+          margin-bottom: 1vw;
+      }
+
+      input {
+          box-sizing: border-box;
+          padding: 1vw;
+          margin-bottom: 2vw;
+      }
+
+      button {
+          box-sizing: border-box;
+          padding: 1vw;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+
+      button:hover {
+          background-color: #45a049;
+      }
+
+      #result {
+          margin-top: 2vw;
+      }
+
+      /* Media query for screens smaller than 600 pixels (typical mobile devices) */
+      @media only screen and (max-width: 600px) {
+          input,
+          button {
+              width: auto;
+          }
+      }
+  </style>
+</head>
+<body>
+
+    <label for="height">Висота фасаду (мм):</label>
+    <input type="number" id="height" placeholder="Введіть висоту фасаду">
+
+    <label for="width">Ширина фасаду (мм):</label>
+    <input type="number" id="width" placeholder="Введіть ширину фасаду">
+
+    <button onclick="calculate()">Розрахувати</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            // Отримання введених значень
+            var height = document.getElementById("height").value;
+            var width = document.getElementById("width").value;
+
+            // Розрахунки для стояків
+            var verticalBars = { width: 70, height: height, thickness: 22 }; // Завжди два стояки
+
+            // Розрахунки для поперечок
+            var horizontalBarsLength = width - (2 * 70) + (2 * 13);
+            var horizontalBars = { width: horizontalBarsLength, height: 70, thickness: 22 }; // Завжди дві поперечки
+
+            // Розрахунки для фільонок
+            var fillets = { width: horizontalBarsLength - 3, height: (height - (2 * 70) + (2 * 13)) - 3 }; // Завжди одна фільонка
+
+            // Вивід результатів
+            var resultHtml = "<p>Стояки: Довжина: " + verticalBars.height + "мм, Ширина: " + verticalBars.width + "мм, Товщина: " + verticalBars.thickness + "мм</p>";
+            resultHtml += "<p>Поперечки: Довжина: " + horizontalBars.width + "мм, Ширина: " + horizontalBars.height + "мм, Товщина: " + horizontalBars.thickness + "мм</p>";
+            resultHtml += "<p>Фільонка: Довжина: " + fillets.height + "мм, Ширина: " + fillets.width + "мм, Tовщина: " + 7 + "мм</p>";
+
+            document.getElementById("result").innerHTML = resultHtml;
+        }
+    </script>
+
+</body>
+</html>
